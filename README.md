@@ -1,2 +1,2 @@
-# TAMS
-TAMS
+<h1>TAMS-TEACHER ASSISTANT MANAGEMENT SYSTEM</h1>
+<h3>Dev by Thanathat Choobua</h3>
