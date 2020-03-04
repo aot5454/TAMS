@@ -5,6 +5,9 @@ $(document).ready(function() {
     $("#repass").keyup(validate2);
     $("#pass").keyup(chackCharLen2);
 
+    $(".repassword").keyup(validate3);
+    $(".password").keyup(chackCharLen3);
+
     $('body').tooltip({
         selector: "[data-tooltip=tooltip]",
         container: "body"
@@ -67,6 +70,36 @@ function chackCharLen2() {
 
         if (password1 === password2) {
             $("#btnSubmitEdit").attr("disabled", false);
+        }
+    }
+}
+
+// Chack len password
+function chackCharLen3() {
+    var password1 = $(".password").val();
+    var password2 = $(".repassword").val();
+    var lenPass = password1.length;
+
+    if (lenPass < 8 || lenPass > 20) {
+        // INVALID
+        $(".password").addClass('is-invalid');
+
+        $("#passwordHelpBlock")
+            .removeClass()
+            .addClass('invalid-feedback d-block');
+
+        $("#btnSubmitAdd").attr("disabled", true);
+    } else {
+        // VALID
+        $(".password")
+            .removeClass('is-invalid')
+            .addClass('is-valid');
+
+        $(".passwordHelpBlock")
+            .removeClass('invalid-feedback d-block');
+
+        if (password1 === password2) {
+            $("#btnSubmitAdd").attr("disabled", false);
         }
     }
 }
@@ -152,6 +185,49 @@ function validate2() {
             $("#repass").addClass('is-invalid');
 
             $("#btnSubmitEdit").attr("disabled", true);
+        }
+    }
+
+}
+
+// Chack password
+function validate3() {
+    var password1 = $(".password").val();
+    var password2 = $(".repassword").val();
+
+    if (password2 == "" || password2 == null) {
+        // INVALID and NULL
+        $("#validate-status")
+            .removeClass('invalid-feedback d-block')
+            .text("");
+        $(".repassword")
+            .removeClass('is-invalid')
+            .removeClass('is-valid');
+        $(".btn-submit-ok").attr("disabled", true);
+    } else {
+
+        if (password1 == password2) {
+            // VALID
+            $("#validate-status")
+                .text('Password match.')
+                .removeClass()
+                .addClass('valid-feedback d-block');
+
+            $(".repassword")
+                .removeClass('is-invalid')
+                .addClass('is-valid');
+
+            $(".btn-submit-ok").attr("disabled", false);
+        } else {
+            // INVALID
+            $("#validate-status")
+                .text('Password not match.')
+                .removeClass()
+                .addClass('invalid-feedback d-block');
+
+            $(".repassword").addClass('is-invalid');
+
+            $(".btn-submit-ok").attr("disabled", true);
         }
     }
 

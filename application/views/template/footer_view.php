@@ -23,7 +23,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 <!-- Profile Model -->
 <div class="modal fade" id="profile" tabindex="-1" role="dialog" aria-labelledby="pro" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="pro">Profile</h5>
@@ -32,93 +32,171 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </button>
             </div>
 
-            <form autocomplete="off" method="POST" action="#">
-                <div class="modal-body">
-                    <input type="hidden" name="user_id" value="<?= $this->session->userdata('login_id'); ?>">
-                    <div class="form-group">
-                        <label for="nisitID">รหัสนิสิต</label>
-                        <input type="text" class="form-control" name="nisitID" id="nisitID" value="<?= $this->session->userdata('login_id'); ?>" readonly>
+            <?php
+            if ($this->session->userdata('status') == "nisit") {
+                $id = $this->session->userdata('login_id');
+                $info_nisit = $this->User_model->fetch_user_id_st_print($id);
+            ?>
+
+                <form method="POST" action="<?php echo base_url('Nisit/editUserNisit'); ?>">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="id-edit">ID Student</label>
+                                    <input type="text" class="form-control" name="id-edit" id="id-edit" value="<?= $info_nisit[0]['st_id']; ?>" required readonly>
+                                </div>
+
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="pass">New Password</label>
+                                    <input type="password" name="password-old" id="password-old" value="<?= $info_nisit[0]['st_pwd']; ?>" hidden>
+                                    <input type="password" class="form-control" name="password-edit" id="pass" placeholder="Enter new Password">
+                                </div>
+
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="repass">Re-New Password</label>
+                                    <input type="password" class="form-control" name="repassword-edit" id="repass" placeholder="Enter Re-Password">
+                                    <div class="" id="validate-status2"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label for="title-edit">คำนำหน้า</label>
+                                    <select class="form-control" name="title-edit" id="title-edit" required>
+                                        <option selected disabled>-- เลือก --</option>
+                                        <option value="นาย" <?= ($info_nisit[0]['st_title'] == "นาย") ? "selected" : ""; ?>>นาย</option>
+                                        <option value="นาง" <?= ($info_nisit[0]['st_title'] == "นาง") ? "selected" : ""; ?>>นาง</option>
+                                        <option value="นางสาว" <?= ($info_nisit[0]['st_title'] == "นางสาว") ? "selected" : ""; ?>>นางสาว</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label for="name-edit">ชื่อจริง</label>
+                                    <input type="text" class="form-control" name="name-edit" id="name-edit" placeholder="Enter name" value="<?= $info_nisit[0]['st_name']; ?>" required>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label for="surname-edit">นามสกุล</label>
+                                    <input type="text" class="form-control" name="surname-edit" id="surname-edit" placeholder="Enter surname" value="<?= $info_nisit[0]['st_surname']; ?>" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="sex-edit">เพศ</label>
+                                    <select class="form-control" name="sex-edit" id="sex-edit" required>
+                                        <option selected disabled>-- เลือก --</option>
+                                        <option value="1" <?= ($info_nisit[0]['st_sex'] == 1) ? "selected" : ""; ?>>ชาย</option>
+                                        <option value="2" <?= ($info_nisit[0]['st_sex'] == 2) ? "selected" : ""; ?>>หญิง</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="nickname-edit">ชื่อเล่น</label>
+                                    <input type="text" class="form-control" name="nickname-edit" id="nickname-edit" placeholder="Enter nickname" value="<?= $info_nisit[0]['st_nickname']; ?>">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="tel-edit">เบอร์โทรศัพท์</label>
+                                    <input type="text" class="form-control" name="tel-edit" id="tel-edit" placeholder="Enter Telephone number" value="<?= $info_nisit[0]['st_tel']; ?>">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="fac-edit">คณะ</label>
+                                    <input type="text" class="form-control" name="fac" id="fac-edit" value="วิทยาศาสตร์" readonly>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="major-edit">สาขา</label>
+                                    <select class="form-control" name="major-edit" id="major-edit" required>
+                                        <option selected disabled>-- เลือก --</option>
+                                        <option value="10007" <?= ($info_nisit[0]['maj_id'] == "10007") ? "selected" : ""; ?>>วิทยาการคอมพิวเตอร์</option>
+                                        <option value="10008" <?= ($info_nisit[0]['maj_id'] == "10008") ? "selected" : ""; ?>>เทคโนโลยีสารสนเทศ</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="gpax-edit">GPAX</label>
+                                    <input type="text" class="form-control" name="gpax-edit" id="gpax-edit" placeholder="Enter GPAX" value="<?= $info_nisit[0]['st_gpax']; ?>" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="email-edit">E-mail</label>
+                                    <input type="text" class="form-control" name="email-edit" id="email-edit" placeholder="Enter Email" value="<?= $info_nisit[0]['st_email']; ?>">
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="text" name="status-edit" value="nisit" hidden>
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="grade">คำนำหน้า</label>
-                            <select class="form-control" name="uts" id="uts" required>
-                                <option value="">-- เลือกคำนำ --</option>
-                                <option value="male">นาย</option>
-                                <option value="female">นางสาว</option>
-                            </select>
-
-                        </div>
-                        <div class="form-group col-md-8">
-                            <label for="name">ชื่อ-สกุล</label>
-                            <input type="text" class="form-control" name="name" id="name" value="<?= $this->session->userdata('username'); ?>" readonly>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button class="btn btn-success float-right" type="submit" id="btnSubmitEdit">Save</button>
                     </div>
-
-
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="uts">ระดับปริญญา</label>
-                            <select class="form-control" name="uts" id="uts" required>
-                                <option value="">-- เลือกระดับปริญญา --</option>
-                                <option value="tre">ตรี</option>
-                                <option value="to">โท</option>
-                                <option value="ake">เอก</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="faculty">คณะ</label>
-                            <input type="text" class="form-control" id="faculty" value="วิทยาศาสตร์" readonly>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="major">สาขาวิชา</label>
-                            <select class="form-control" name="major" id="major" required>
-                                <option value="">-- เลือกสาขาวิชา --</option>
-                                <option value="com">วิทยาการคอมพิวเตอร์</option>
-                                <option value="it">เทคโนโลยีสารสนเทศ</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="years">ชั้นปี</label>
-                            <select class="form-control" name="years" id="years" required>
-                                <option value="">-- เลือกชั้นปี --</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="grade">เกรดเฉลี่ย GPA</label>
-                            <input type="number" step="any" min="0.00" max="4.00" class="form-control" id="grade" name="grade" placeholder="เกรดเฉลี่ย" required>
-                        </div>
-                        <div class="form-group col-md-8">
-                            <label for="tel">เบอร์โทรศัพท์</label>
-                            <input type="tel" pattern="[0-9]*" minlength="10" maxlength="10" class="form-control" id="tel" name="tel" placeholder="โปรดกรอก เบอร์โทรศัพท์" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">E-Mail</label>
-                        <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="form-control" id="email" placeholder="โปรดกรอก Email" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button class="btn btn-success float-right" type="submit" id="btnSubmitEdit">Save changes</button>
-                </div>
-            </form>
-
+                </form>
+            <?php
+            } ?>
         </div>
     </div>
 </div>
+
+<?php
+$stu = $this->session->userdata('status');
+if ($stu == "nisit") { ?>
+    <!-- GPAX Modal -->
+    <div class="modal fade" id="chack-gpax" tabindex="-1" role="dialog" aria-labelledby="gpax" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-primary" id="gpax">โปรดกรอกผลการเรียนเฉลี่ย GPAX</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="<?= base_url('nisit/editGPAX') ?>" method="post">
+                    <div class="modal-body">
+                        <div>
+                            <p>*เนื่องจากในการคัดเลือกนิสิตช่วยสอนในรายวิชาต่างๆ ผลการเรียนเฉลี่ยมีผลในการตัดสิน*</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="gpaxx">GPAX</label>
+                            <input type="text" name="id-gpaxx" value="<?= $this->session->userdata('login_id'); ?>" hidden>
+                            <input type="text" class="form-control" id="gpaxx" name="gpaxx" placeholder="4.00" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+                        <button type="submit" class="btn btn-primary">บันทึก</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<?php
+} ?>
 
 <!-- Logout Modal-->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -181,6 +259,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
         }, 3000);
     }
 </script>
+
+<?php
+if ($this->session->userdata('status') == "nisit") {
+    $id = $this->session->userdata('login_id');
+    $gpax_nisit = $this->User_model->get_gpax($id);
+    //print_r($gpax_nisit);
+    if ($gpax_nisit[0]['st_gpax'] == 0) {
+        echo "
+        <script>
+            $('#chack-gpax').modal('show')
+        </script>
+        ";
+    }
+}
+?>
 </body>
 
 </html>

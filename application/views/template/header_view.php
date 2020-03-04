@@ -77,7 +77,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             if ($user == "admin") {
                 include_once 'slidebar/slidebar_admin.php';
             } elseif ($user == "staff") {
-                //include_once 'slidebar.php';
+                include_once 'slidebar/slidebar_staff.php';
             } elseif ($user == "teacher") {
                 //include_once 'slidebar.php';
             } elseif ($user == "nisit") {

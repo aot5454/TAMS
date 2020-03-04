@@ -133,7 +133,7 @@ if ($post[0]['poif_url'] == null or $post[0]['poif_url'] == "-") {
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="pro">ยืนยันการสมัครนิสิตช่วยสอน</h5>
+                <h5 class="modal-title text-primary" id="pro">ยืนยันการสมัครนิสิตช่วยสอน</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -145,14 +145,23 @@ if ($post[0]['poif_url'] == null or $post[0]['poif_url'] == "-") {
                     <input type="hidden" name="user_id" value="<?= $this->session->userdata('login_id'); ?>">
                     <div class="form-group">
                         <label for="gradeSubject">ผลการเรียนในรายวิชานี้</label>
-                        <input type="text" class="form-control" name="gradeSubject" id="gradeSubject" placeholder="A-F" style="text-transform:uppercase" maxlength="2" required>
+                        <!-- <input type="text" class="form-control" name="gradeSubject" id="gradeSubject" placeholder="A-F" style="text-transform:uppercase" maxlength="2" required> -->
+
+                        <select class="custom-select" name="gradeSubject" id="gradeSubject" required>
+                            <option value="">--- เลือก ---</option>
+                            <option value="A">A</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                            <option value="C+">C+</option>
+                            <option value="C">C</option>
+                        </select>
                         <small>ผลการเรียนนี้ จะนำไปพิจารณาในการคัดเลือกนิสิตช่วยสอนต่อไป <br></small>
                         <small>Tip : เมื่อยืนยันการสมัครแล้ว สามารถดูสถานะการสมัครได้ที่เมนู "สถานะการสมัคร"</small>
 
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">ย้อนกลับ</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
                     <button class="btn btn-primary float-right" type="submit" id="btnSubmitEdit">ยืนยัน</button>
                 </div>
             </form>

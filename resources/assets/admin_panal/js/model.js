@@ -24,7 +24,6 @@ $('#editUserNisit').on('show.bs.modal', function(e) {
     $(e.currentTarget).find('select[name="major-edit"]').val(major);
     $(e.currentTarget).find('input[name="tel-edit"]').val(tel);
     $(e.currentTarget).find('input[name="email-edit"]').val(email);
-
 });
 
 $('#confirm-delete-nisit').on('show.bs.modal', function(e) {
@@ -93,8 +92,33 @@ $('#confirm-delete-post').on('show.bs.modal', function(e) {
     $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
 });
 
+$('#editUserStaff').on('show.bs.modal', function(e) {
+    var id = $(e.relatedTarget).data('id');
+    var title = $(e.relatedTarget).data('title');
+    var name = $(e.relatedTarget).data('name');
+    var surname = $(e.relatedTarget).data('surname');
+    var pass = $(e.relatedTarget).data('pwd');
 
+    $(e.currentTarget).find('input[name="id-staff-old"]').val(id);
+    $(e.currentTarget).find('input[name="id-staff-edit"]').val(id);
+    $(e.currentTarget).find('input[name="password-staff-old"]').val(pass);
+    $(e.currentTarget).find('#title-staff-edit').val(title);
+    $(e.currentTarget).find('input[name="name-staff-edit"]').val(name);
+    $(e.currentTarget).find('input[name="surname-staff-edit"]').val(surname);
+});
 
+$('#editUserTeacher').on('show.bs.modal', function(e) {
+    var id = $(e.relatedTarget).data('id');
+    var namethai = $(e.relatedTarget).data('namethai');
+    var nameeng = $(e.relatedTarget).data('nameeng');
+    var pass = $(e.relatedTarget).data('pwd');
+
+    $(e.currentTarget).find('input[name="id-teacher-edit"]').val(id);
+    $(e.currentTarget).find('input[name="id-teacher-old-edit"]').val(id);
+    $(e.currentTarget).find('input[name="password-old-tea-edit"]').val(pass);
+    $(e.currentTarget).find('input[name="name-thai-edit"]').val(namethai);
+    $(e.currentTarget).find('input[name="name-eng-edit"]').val(nameeng);
+});
 
 $('#time-start').datetimepicker({
     format: 'HH:mm'
@@ -131,3 +155,4 @@ $('#work-en-update').datetimepicker({
 });
 
 $('#tableTeacher').dataTable();
+$('#tableStaff').dataTable();

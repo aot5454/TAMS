@@ -83,7 +83,7 @@
                                 $count_reg_ta = $this->RegTa_model->chack_reg_count($post['post_id']);
                                 if ($count_reg_ta) {
                                 ?>
-                                    <a class="btn btn-sm btn-info text-left" href="<?= base_url('admin/registeration/') . $post['post_id']; ?>">ดูรายชื่อ</a>
+                                    <a class="btn btn-sm btn-info text-left" href="<?= base_url($this->session->userdata('status') . '/registeration/') . $post['post_id']; ?>">ดูรายชื่อ</a>
                                 <?php
                                 }
                                 ?>
@@ -92,16 +92,16 @@
                                 <?php
                                 if ($post['post_status'] == "on") {
                                 ?>
-                                    <a class="btn btn-sm text-white btn-danger" href="#on" data-href="<?= base_url('admin/change_status_post/') . $post['post_id'] . "/off"; ?>" data-toggle="modal" data-target="#confirmOnOff">off</a>
+                                    <a class="btn btn-sm text-white btn-danger" href="#on" data-href="<?= base_url($this->session->userdata('status') . '/change_status_post/') . $post['post_id'] . "/off"; ?>" data-toggle="modal" data-target="#confirmOnOff">off</a>
                                 <?php
                                 } else {
                                 ?>
-                                    <a class="btn btn-sm text-white btn-success" href="#off" data-href="<?= base_url('admin/change_status_post/') . $post['post_id'] . "/on"; ?>" data-toggle="modal" data-target="#confirmOnOff">on</a>
+                                    <a class="btn btn-sm text-white btn-success" href="#off" data-href="<?= base_url($this->session->userdata('status') . '/change_status_post/') . $post['post_id'] . "/on"; ?>" data-toggle="modal" data-target="#confirmOnOff">on</a>
                                 <?php
                                 }
                                 ?>
                                 <a class="btn btn-sm btn-warning" href="#edit" data-idpost="<?= $post['post_id']; ?>" data-idsubinfo="<?= $post['poif_id']; ?>" data-idsubject="<?= $post['sj_id']; ?>" data-sec="<?= $post['poif_section']; ?>" data-term="<?= $post['poif_term']; ?>" data-years="<?= $post['poif_years']; ?>" data-teacherid="<?= $post['tc_id']; ?>" data-daywork="<?= $post['poif_daywork']; ?>" data-timeworkstart="<?= $post['poif_timework_start']; ?>" data-timeworkend="<?= $post['poif_timework_end']; ?>" data-workstart="<?= $post['poif_work_start']; ?>" data-workend="<?= $post['poif_work_end']; ?>" data-nisitnum="<?= $post['poif_num_st']; ?>" data-url="<?= $post['poif_url']; ?>" data-quali="<?= $post['post_qualification']; ?>" data-status="<?= $post['post_status']; ?>" data-toggle="modal" data-target="#updatePost"><i class="fas fa-edit"></i></a>
-                                <a class="btn btn-sm btn-danger" href="#remove" data-href="<?= base_url('admin/remove_post/') . $post['post_id'] . "/" . $post['poif_id']; ?>" data-toggle="modal" data-target="#confirm-delete-post"><i class="fas fa-trash"></i></a>
+                                <a class="btn btn-sm btn-danger" href="#remove" data-href="<?= base_url($this->session->userdata('status') . '/remove_post/') . $post['post_id'] . "/" . $post['poif_id']; ?>" data-toggle="modal" data-target="#confirm-delete-post"><i class="fas fa-trash"></i></a>
                             </div>
                         </div>
                     </div>

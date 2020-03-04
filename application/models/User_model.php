@@ -179,6 +179,15 @@ class User_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+
+    public function get_gpax($id)
+    {
+        $this->db->select('tb_student.st_gpax');
+        $this->db->from('tb_student');
+        $this->db->where('st_id', $id);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
     //USE
 
 

@@ -122,4 +122,67 @@ class Nisit extends CI_Controller
         $_SESSION['message'] = "~~ See you again ~~";
         redirect('login');
     }
+
+    public function editUserNisit()
+    {
+        $id = $this->input->post('id-edit');
+        $pass_old = $this->input->post('password-old');
+        $pass_new = $this->input->post('password-edit');
+        $title = $this->input->post('title-edit');
+        $name = $this->input->post('name-edit');
+        $surname = $this->input->post('surname-edit');
+        $sex = $this->input->post('sex-edit');
+        $nickname = $this->input->post('nickname-edit');
+        $major = $this->input->post('major-edit');
+        $tel = ($this->input->post('tel-edit'));
+        $gpax = ($this->input->post('gpax-edit'));
+        $email = $this->input->post('email-edit');
+        $status = $this->input->post('status-edit');
+
+        if (strlen($pass_new) == 0 or $pass_new == "") {
+            $password = $pass_old;
+        } else {
+            $password = $pass_new;
+        }
+
+        $data_update = array(
+            'st_pwd' => $password,
+            'st_title' => $title,
+            'st_name' => $name,
+            'st_surname' => $surname,
+            'st_nickname' => $nickname,
+            'st_sex' => (int) $sex,
+            'maj_id' => (int) $major,
+            'st_tel' => $tel,
+            'st_email' => $email,
+            'st_gpax' => $gpax,
+            'st_status' => $status,
+        );
+
+        if ($this->User_model->update_user("st_id", $id, $data_update, "tb_student") == "success") {
+            $_SESSION['message'] = "Update already!";
+            redirect('nisit?update_user=success');
+        } else {
+            $_SESSION['message'] = "Update not success!!!";
+            redirect('nisit?update_user=not_success');
+        }
+    }
+
+    public function editGPAX()
+    {
+        $id = $this->input->post('id-gpaxx');
+        $gpax = ($this->input->post('gpaxx'));
+
+        $data_update = array(
+            'st_gpax' => $gpax
+        );
+
+        if ($this->User_model->update_user("st_id", $id, $data_update, "tb_student") == "success") {
+            $_SESSION['message'] = "Save already!";
+            redirect('nisit?update_user=success');
+        } else {
+            $_SESSION['message'] = "Save not success!!!";
+            redirect('nisit?update_user=not_success');
+        }
+    }
 }

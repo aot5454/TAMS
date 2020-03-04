@@ -130,7 +130,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                             </button>
                                             <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
                                                 <button class="dropdown-item" id="editUserBtn" data-id="<?= $user['st_id']; ?>" data-pass="<?= $user['st_pwd']; ?>" data-title="<?= $user['st_title']; ?>" data-name="<?= $user['st_name']; ?>" data-surname="<?= $user['st_surname']; ?>" data-sex="<?= $user['st_sex']; ?>" data-nickname="<?= $user['st_nickname']; ?>" data-major="<?= $user['maj_id']; ?>" data-tel="<?= $user['st_tel']; ?>" data-email="<?= $user['st_email']; ?>" data-toggle="modal" data-target="#editUserNisit">Edit</button>
-                                                <a class="dropdown-item" href="#" data-href="<?php echo base_url('admin/removeUserNisit/') . $user['st_id'] ?>" data-toggle="modal" data-target="#confirm-delete-nisit">Remove</a>
+                                                <a class="dropdown-item" href="#" data-href="<?php echo base_url('admin/removeUserNisit/') . $user['st_id'] ?>" data-toggle="modal" data-target="#confirm-delete">Remove</a>
                                             </div>
                                         </td>
                                     </tr>
@@ -195,8 +195,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                 Action
                                             </button>
                                             <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-                                                <button class="dropdown-item" id="editUserBtn" data-toggle="modal" data-target="#editUserNisit">Edit</button>
-                                                <a class="dropdown-item" href="#" data-href="<?php echo base_url('admin/removeUserTeacher/') . $tc['tc_id']; ?>" data-toggle="modal" data-target="#confirm-delete-nisit">Remove</a>
+                                                <button class="dropdown-item" id="editUserBtn" data-toggle="modal" data-id="<?= $tc['tc_id']; ?>" data-namethai="<?= $tc['tc_name_thai']; ?>" data-nameeng="<?= $tc['tc_name_eng']; ?>" data-pwd="<?= $tc['tc_pwd']; ?>" data-target="#editUserTeacher">Edit</button>
+                                                <a class="dropdown-item" href="#" data-href="<?php echo base_url('admin/removeUserTeacher/') . $tc['tc_id']; ?>" data-toggle="modal" data-target="#confirm-delete">Remove</a>
                                             </div>
                                         </td>
                                     </tr>
@@ -214,6 +214,68 @@ defined('BASEPATH') or exit('No direct script access allowed');
     </div>
     <!-- ./ Content Row Card -->
 
+    <!-- Table Staff -->
+    <!-- Content Row Card -->
+    <div class="row">
+
+        <!-- Table col 8 -->
+        <div class="col-lg-12">
+            <!-- DataTales -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Table Staff</h6>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="table-responsive">
+                        <div class="float-right">
+                            <button type="button" class="btn btn-success ml-3" data-toggle="modal" data-target="#addUserStaff">ADD Staff</button>
+                        </div>
+                        <table class="table table-bordered" id="tableStaff" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>ID</th>
+                                    <th>Password</th>
+                                    <th>Name</th>
+                                    <th>Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $i = 0;
+                                foreach ($users_staff_arr as $st) {
+                                    $i++;
+                                ?>
+                                    <tr>
+                                        <td style="width: 2%; text-align: center;"><?= $i; ?></td>
+                                        <td><?php echo $st['staff_id']; ?></td>
+                                        <td><?php echo $st['staff_pwd']; ?></td>
+                                        <td><?php echo $st['staff_title'] . $st['staff_name'] . " " . $st['staff_surname']; ?></td>
+                                        <td style="width:  8.33%">
+                                            <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Action
+                                            </button>
+                                            <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
+                                                <button class="dropdown-item" id="editUserBtn" data-toggle="modal" data-id="<?= $st['staff_id']; ?>" data-title="<?= $st['staff_title']; ?>" data-name="<?= $st['staff_name']; ?>" data-surname="<?= $st['staff_surname']; ?>" data-pwd="<?= $st['staff_pwd']; ?>" data-target="#editUserStaff">Edit</button>
+                                                <a class="dropdown-item" href="#" data-href="<?php echo base_url($this->session->userdata('status') . '/removeUserStaff/') . $st['staff_id']; ?>" data-toggle="modal" data-target="#confirm-delete">Remove</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php } //end for
+
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Table -->
+
+    </div>
+    <!-- ./ Content Row Card -->
 </div>
 <!-- /.container-fluid -->
 
@@ -224,7 +286,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <!-- MODEL -->
 
 <!-- Modal Remove User-->
-<div class="modal fade" id="confirm-delete-nisit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -251,7 +313,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-success" id="exampleModalLongTitle">Edit Student</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Edit Student</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -343,7 +405,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="fac-edit">คณะ</label>
-                                <input type="text" class="form-control" name="fac" id="fac-edit" value="วิทยาศาสตร์" readonly>
+                                <input type="text" class="form-control" name="fac-edit" id="fac-edit" value="วิทยาศาสตร์" readonly>
                             </div>
                         </div>
                         <div class="col-4">
@@ -384,7 +446,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
         </div>
     </div>
 </div>
-
 
 <!-- Modal Add USER Student-->
 <div class="modal fade" id="addUserNisit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -430,6 +491,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <select class="form-control" name="title" id="title" required>
                                     <option selected disabled>-- เลือก --</option>
                                     <option value="นาย">นาย</option>
+                                    <option value="นาง">นาง</option>
                                     <option value="นางสาว">นางสาว</option>
                                 </select>
                             </div>
@@ -535,7 +597,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </button>
             </div>
 
-            <form autocomplete="off" method="POST" action="<?php echo base_url('admin/addUserTeacher'); ?>">
+            <form autocomplete="off" method="POST" action="<?php echo base_url() . "/" . $this->session->userdata('status') . "/addUserTeacher"; ?>">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-6">
@@ -572,6 +634,201 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button class="btn btn-primary float-right" type="submit" id="btnSubmitAdd">Add Teacher</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit USER Teacher-->
+<div class="modal fade" id="editUserTeacher" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Edit Teacher</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form autocomplete="off" method="POST" action="<?php echo base_url('admin/editUserTeacher'); ?>">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="id-teacher-edit">ID Teacher</label>
+                                <input type="text" name="id-teacher-old-edit" hidden>
+                                <input type="text" class="form-control" name="id-teacher-edit" id="id-teacher-edit" placeholder="Enter ID" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password-tea-edit">Password</label>
+                                <input type="text" name="password-old-tea-edit" hidden>
+                                <input type="password" class="form-control" name="password-tea-edit" id="password-tea-edit" placeholder="Enter New Password">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="repassword-tea-edit">Re-New Password</label>
+                                <input type="password" class="form-control" name="repassword-tea-edit" id="repassword-tea-edit" placeholder="Enter New Re-Password">
+                                <div class="" id="validate-status2"></div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="name-thai-edit">Name thai</label>
+                                <input type="text" class="form-control" name="name-thai-edit" id="name-thai-edit" placeholder="Enter Name thai" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="name-eng-edit">Name Eng</label>
+                                <input type="text" class="form-control" name="name-eng-edit" id="name-eng-edit" placeholder="Enter Name Eng" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="text" name="status-tc-edit" value="teacher" hidden>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button class="btn btn-success float-right" type="submit" id="btnSubmitAdd">Save</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal Add USER Staff-->
+<div class="modal fade" id="addUserStaff" tabindex="-1" role="dialog" aria-labelledby="xxx" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary" id="xxx">Add Staff</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form autocomplete="off" method="POST" action="<?php echo base_url() . "/" . $this->session->userdata('status') . "/addUserStaff"; ?>">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="id-staff">ID Staff</label>
+                                <input type="text" class="form-control" name="id-staff" id="id-staff" placeholder="Enter ID" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password-staff">Password</label>
+                                <input type="password" class="form-control password" name="password-staff" id="password-staff" placeholder="Enter Password" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="repassword-staff">Re-Password</label>
+                                <input type="password" class="form-control repassword" name="repassword-staff" id="repassword-staff" placeholder="Enter Re-Password" required>
+                                <div class="" id="validate-status2"></div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+
+                            <div class="form-group">
+                                <label for="title-staff">คำนำหน้า</label>
+                                <select class="custom-select" id="title-staff" name="title-staff" required>
+                                    <option value="" selected>-- เลือก --</option>
+                                    <option value="นาย">นาย</option>
+                                    <option value="นาง">นาง</option>
+                                    <option value="นางสาว">นางสาว</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name-staff">ชื่อ</label>
+                                <input type="text" class="form-control" name="name-staff" id="name-staff" placeholder="Enter Name" required>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="surname-staff">นามสกุล</label>
+                                <input type="text" class="form-control" name="surname-staff" id="surname-staff" placeholder="Enter Surname" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="text" name="status" value="staff" hidden>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary float-right btn-submit-ok" type="submit">Add Staff</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit USER Staff-->
+<div class="modal fade" id="editUserStaff" tabindex="-1" role="dialog" aria-labelledby="xxx" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-black" id="xxx">Edit Staff</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form autocomplete="off" method="POST" action="<?php echo base_url() . "/" . $this->session->userdata('status') . "/editUserStaff"; ?>">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="id-staff-edit">ID Staff</label>
+                                <input type="text" name="id-staff-old" hidden>
+                                <input type="text" class="form-control" name="id-staff-edit" id="id-staff-edit" placeholder="Enter ID" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password-staff-edit">Password</label>
+                                <input type="password" name="password-staff-old" hidden>
+                                <input type="password" class="form-control password" name="password-staff-edit" id="password-staff-edit" placeholder="Enter Password">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="repassword-staff-edit">Re-Password</label>
+                                <input type="password" class="form-control repassword" name="repassword-staff-edit" id="repassword-staff-edit" placeholder="Enter Re-Password">
+                                <div class="" id="validate-status2"></div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+
+                            <div class="form-group">
+                                <label for="title-staff-edit">คำนำหน้า</label>
+                                <select class="custom-select" id="title-staff-edit" name="title-staff-edit">
+                                    <option value="" selected>-- เลือก --</option>
+                                    <option value="นาย">นาย</option>
+                                    <option value="นาง">นาง</option>
+                                    <option value="นางสาว">นางสาว</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name-staff-edit">ชื่อ</label>
+                                <input type="text" class="form-control" name="name-staff-edit" id="name-staff-edit" placeholder="Enter Name" required>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="surname-staff-edit">นามสกุล</label>
+                                <input type="text" class="form-control" name="surname-staff-edit" id="surname-staff-edit" placeholder="Enter Surname" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="text" name="status" value="staff" hidden>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button class="btn btn-success float-right btn-submit-ok" type="submit">Save</button>
                 </div>
             </form>
 

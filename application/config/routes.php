@@ -52,3 +52,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $route['default_controller'] = 'login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['staff/users'] = 'admin/users';
+$route['staff/posts'] = 'admin/posts';
+$route['staff/subject'] = 'admin/subject';
+$route['staff/registeration/(:num)'] = 'admin/registeration/$1';
