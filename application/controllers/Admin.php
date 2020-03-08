@@ -560,6 +560,81 @@ class Admin extends CI_Controller
 
     //---------------------------------------------------------------------------------//
 
+    // METHOD CRUD User Admin
+    public function addUserAdmin()
+    {
+        $data_insert = array(
+            'admin_username' =>  $this->input->post('username-admin'),
+            'admin_pwd' => $this->input->post('password-admin'),
+            'admin_title' => $this->input->post('title-admin'),
+            'admin_name' => $this->input->post('name-admin'),
+            'admin_surname' => $this->input->post('surname-admin'),
+        );
+
+        if ($this->User_model->insert_user($data_insert, 'tb_admin') == "success") {
+            $_SESSION['message'] = "Add user " . $this->input->post('name-admin') . " already!";
+            $user_status = $this->session->userdata('status');
+            redirect($user_status . '/users?insert=success');
+        } else {
+            $_SESSION['message'] = "Can't add user!!!";
+            $user_status = $this->session->userdata('status');
+            redirect($user_status . '/users?insert=not_success');
+        }
+    }
+
+    public function editUserAdmin()
+    {
+        $id = $this->input->post('id-admin');
+        $username = $this->input->post('username-admin-edit');
+        $pass_old = $this->input->post('password-admin-old');
+        $pass_new = $this->input->post('password-admin-edit');
+        $title = $this->input->post('title-admin-edit');
+        $name = $this->input->post('name-admin-edit');
+        $surname = $this->input->post('surname-admin-edit');
+
+        if (strlen($pass_new) == 0 or $pass_new == "") {
+            $password = $pass_old;
+        } else {
+            $password = $pass_new;
+        }
+
+        $data_update = array(
+            'admin_username' => $username,
+            'admin_pwd' => $password,
+            'admin_title' => $title,
+            'admin_name' => $name,
+            'admin_surname' => $surname
+        );
+
+        if ($this->User_model->update_user("admin_id", $id, $data_update, "tb_admin") == "success") {
+            $_SESSION['message'] = "Update admin already!";
+            $user_status = $this->session->userdata('status');
+            redirect($user_status . '/users?update_user=success');
+        } else {
+            $_SESSION['message'] = "Update user not success!!!";
+            $user_status = $this->session->userdata('status');
+            redirect($user_status . '/users?update_user=not_success');
+        }
+    }
+
+    public function removeUserAdmin()
+    {
+        $id = $this->uri->segment(3);
+
+        if ($this->User_model->remove_user("admin_id", $id, "tb_admin") == "success") {
+            $_SESSION['message'] = "Remove admin already!";
+            $user_status = $this->session->userdata('status');
+            redirect($user_status . '/users?remove_user=success');
+        } else {
+            $_SESSION['message'] = "Can't remove user!!!";
+            $user_status = $this->session->userdata('status');
+            redirect($user_status . '/users?remove_user=not_success');
+        }
+    }
+    // End CRUD User Admin
+
+    //---------------------------------------------------------------------------------//
+
     // METHOD CRUD Subject
     public function add_subject()
     {

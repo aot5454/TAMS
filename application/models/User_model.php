@@ -171,6 +171,27 @@ class User_model extends CI_Model
         return $query->result_array();
     }
 
+    public function fetch_user_id_staff($id)
+    {
+        $this->db->where('staff_id', $id);
+        $query = $this->db->get('tb_staff');
+        return $query->result_array();
+    }
+
+    public function fetch_user_id_admin($id)
+    {
+        $this->db->where('admin_id', $id);
+        $query = $this->db->get('tb_admin');
+        return $query->result_array();
+    }
+
+    public function fetch_user_id_teacher($id)
+    {
+        $this->db->where('teacher_id', $id);
+        $query = $this->db->get('tb_teacher');
+        return $query->result_array();
+    }
+
     public function get_major($id)
     {
         $this->db->select('maj_name');

@@ -37,7 +37,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 $id = $this->session->userdata('login_id');
                 $info_nisit = $this->User_model->fetch_user_id_st_print($id);
             ?>
-
                 <form method="POST" action="<?php echo base_url('Nisit/editUserNisit'); ?>">
                     <div class="modal-body">
                         <div class="row">
@@ -155,6 +154,163 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button class="btn btn-success float-right" type="submit" id="btnSubmitEdit">Save</button>
+                    </div>
+                </form>
+            <?php
+            } elseif ($this->session->userdata('status') == "teacher") {
+            ?>
+                <form autocomplete="off" method="POST" action="<?php echo base_url('admin/editUserTeacher'); ?>">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="id-teacher-edit">ID Teacher</label>
+                                    <input type="text" name="id-teacher-old-edit" hidden>
+                                    <input type="text" class="form-control" name="id-teacher-edit" id="id-teacher-edit" placeholder="Enter ID" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password-tea-edit">Password</label>
+                                    <input type="text" name="password-old-tea-edit" hidden>
+                                    <input type="password" class="form-control password4" name="password-tea-edit" id="password-tea-edit" placeholder="Enter New Password">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="repassword-tea-edit">Re-New Password</label>
+                                    <input type="password" class="form-control repassword4" name="repassword-tea-edit" id="repassword-tea-edit" placeholder="Enter New Re-Password">
+                                    <div class="" id="validate-status224"></div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="name-thai-edit">Name thai</label>
+                                    <input type="text" class="form-control" name="name-thai-edit" id="name-thai-edit" placeholder="Enter Name thai" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name-eng-edit">Name Eng</label>
+                                    <input type="text" class="form-control" name="name-eng-edit" id="name-eng-edit" placeholder="Enter Name Eng" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="text" name="status-tc-edit" value="teacher" hidden>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button class="btn btn-success float-right btn-submit-ok" type="submit" id="btnSubmitAdd3">Save</button>
+                    </div>
+                </form>
+            <?php
+            } elseif ($this->session->userdata('status') == "staff") {
+                $id = $this->session->userdata('login_id');
+                $info = $this->User_model->fetch_user_id_staff($id);
+            ?>
+                <form autocomplete="off" method="POST" action="<?php echo base_url('staff/editUserStaff'); ?>">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="id-staff-edit">Username</label>
+                                    <input type="text" name="id-staff-old" value="<?= $info[0]['staff_id']; ?>" hidden>
+                                    <input type="text" class="form-control" name="id-staff-edit" id="id-staff-edit" placeholder="Enter ID" value="<?= $info[0]['staff_id']; ?>" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password-staff-edit">New Password</label>
+                                    <input type="password" name="password-staff-old" value="<?= $info[0]['staff_pwd']; ?>" hidden>
+                                    <input type="password" class="form-control password" name="password-staff-edit" id="password-staff-edit" placeholder="Enter Password">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="repassword-staff-edit">Renew-Password</label>
+                                    <input type="password" class="form-control repassword" name="repassword-staff-edit" id="repassword-staff-edit" placeholder="Enter Re-Password">
+                                    <div class="" id="validate-status2"></div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+
+                                <div class="form-group">
+                                    <label for="title-staff-edit">คำนำหน้า</label>
+                                    <select class="custom-select" id="title-staff-edit" name="title-staff-edit">
+                                        <option value="">-- เลือก --</option>
+                                        <option value="นาย" <?= ($info[0]['staff_title'] == "นาย") ? 'selected' : ""; ?>>นาย</option>
+                                        <option value="นาง" <?= ($info[0]['staff_title'] == "นาง") ? 'selected' : ""; ?>>นาง</option>
+                                        <option value="นางสาว" <?= ($info[0]['staff_title'] == "นางสาว") ? 'selected' : ""; ?>>นางสาว</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name-staff-edit">ชื่อ</label>
+                                    <input type="text" class="form-control" name="name-staff-edit" id="name-staff-edit" placeholder="Enter Name" value="<?= $info[0]['staff_name']; ?>" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="surname-staff-edit">นามสกุล</label>
+                                    <input type="text" class="form-control" name="surname-staff-edit" id="surname-staff-edit" placeholder="Enter Surname" value="<?= $info[0]['staff_surname']; ?>" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="text" name="status" value="staff" hidden>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button class="btn btn-success float-right btn-submit-ok" type="submit">Save</button>
+                    </div>
+                </form>
+            <?php
+            } elseif ($this->session->userdata('status') == "admin") {
+                $id = $this->session->userdata('login_id');
+                $info = $this->User_model->fetch_user_id_admin($id);
+            ?>
+                <form autocomplete="off" method="POST" action="<?php echo base_url('admin/editUserAdmin'); ?>">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="username-admin-edit">Username</label>
+                                    <input type="text" name="id-admin" value="<?= $info[0]['admin_id'] ?>" hidden>
+                                    <input type="text" class="form-control" name="username-admin-edit" id="username-admin-edit" placeholder="Enter Username" value="<?= $info[0]['admin_username'] ?>" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password-admin-edit">Password</label>
+                                    <input type="password" name="password-admin-old" value="<?= $info[0]['admin_pwd'] ?>" hidden>
+                                    <input type="password" class="form-control password3" name="password-admin-edit" id="password-admin-edit" placeholder="Enter Password">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="repassword-admin-edit">Re-Password</label>
+                                    <input type="password" class="form-control repassword3" name="repassword-admin-edit" id="repassword-admin-edit" placeholder="Enter Re-Password">
+                                    <div class="" id="validate-status3"></div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+
+                                <div class="form-group">
+                                    <label for="title-admin-edit">คำนำหน้า</label>
+                                    <input type="text" class="form-control" id="title-admin-edit" name="title-admin-edit" placeholder="Enter title" value="<?= $info[0]['admin_title'] ?>" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name-admin-edit">ชื่อ</label>
+                                    <input type="text" class="form-control" name="name-admin-edit" id="name-admin-edit" placeholder="Enter Name" value="<?= $info[0]['admin_name'] ?>" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="surname-admin-edit">นามสกุล</label>
+                                    <input type="text" class="form-control" name="surname-admin-edit" id="surname-admin-edit" placeholder="Enter Surname" value="<?= $info[0]['admin_surname'] ?>" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="text" name="status-admin-edit" value="admin" hidden>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button class="btn btn-success float-right btn-submit-ok" type="submit">Save</button>
                     </div>
                 </form>
             <?php

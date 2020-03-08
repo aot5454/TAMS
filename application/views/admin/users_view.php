@@ -236,7 +236,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>ID</th>
+                                    <th>Username</th>
                                     <th>Password</th>
                                     <th>Name</th>
                                     <th>Options</th>
@@ -276,10 +276,75 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     </div>
     <!-- ./ Content Row Card -->
+
+    <?php
+    if ($this->session->userdata('status') == "admin") { ?>
+        <!-- Table admin -->
+        <!-- Content Row Card -->
+        <div class="row">
+
+            <!-- Table col 8 -->
+            <div class="col-lg-12">
+                <!-- DataTales -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Table Admin</h6>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+                            <div class="float-right">
+                                <button type="button" class="btn btn-success ml-3" data-toggle="modal" data-target="#addUserAdmin">ADD Admin</button>
+                            </div>
+                            <table class="table table-bordered" id="tableAdmin" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Username</th>
+                                        <th>Password</th>
+                                        <th>Name</th>
+                                        <th>Options</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $i = 0;
+                                    foreach ($users_admin_arr as $st) {
+                                        $i++;
+                                    ?>
+                                        <tr>
+                                            <td style="width: 2%; text-align: center;"><?= $i; ?></td>
+                                            <td><?php echo $st['admin_username']; ?></td>
+                                            <td><?php echo $st['admin_pwd']; ?></td>
+                                            <td><?php echo $st['admin_title'] . $st['admin_name'] . " " . $st['admin_surname']; ?></td>
+                                            <td style="width:  8.33%">
+                                                <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Action
+                                                </button>
+                                                <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
+                                                    <button class="dropdown-item" id="editUserBtn" data-toggle="modal" data-id="<?= $st['admin_id']; ?>" data-username="<?= $st['admin_username']; ?>" data-title="<?= $st['admin_title']; ?>" data-name="<?= $st['admin_name']; ?>" data-surname="<?= $st['admin_surname']; ?>" data-pwd="<?= $st['admin_pwd']; ?>" data-target="#editUserAdmin">Edit</button>
+                                                    <a class="dropdown-item" href="#" data-href="<?php echo base_url($this->session->userdata('status') . '/removeUserAdmin/') . $st['admin_id']; ?>" data-toggle="modal" data-target="#confirm-delete">Remove</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php } //end for
+
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Table -->
+
+        </div>
+        <!-- ./ Content Row Card -->
+    <?php
+    } ?>
 </div>
 <!-- /.container-fluid -->
-
-
 
 
 
@@ -597,7 +662,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </button>
             </div>
 
-            <form autocomplete="off" method="POST" action="<?php echo base_url() . "/" . $this->session->userdata('status') . "/addUserTeacher"; ?>">
+            <form autocomplete="off" method="POST" action="<?php echo base_url('admin/addUserTeacher'); ?>">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-6">
@@ -608,13 +673,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                             <div class="form-group">
                                 <label for="password-tea">Password</label>
-                                <input type="password" class="form-control" name="password-tea" id="password-tea" placeholder="Enter Password" required>
+                                <input type="password " class="form-control password4" name="password-tea" id="password-tea" placeholder="Enter Password" required>
                             </div>
 
                             <div class="form-group">
-                                <label for="repassword-tea">Re-New Password</label>
-                                <input type="password" class="form-control" name="repassword-tea" id="repassword-tea" placeholder="Enter Re-Password" required>
-                                <div class="" id="validate-status2"></div>
+                                <label for="repassword-tea">Re-Password</label>
+                                <input type="password " class="form-control repassword4" name="repassword-tea" id="repassword-tea" placeholder="Enter Re-Password" required>
+                                <div class="" id="validate-status22"></div>
                             </div>
                         </div>
                         <div class="col-6">
@@ -633,7 +698,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button class="btn btn-primary float-right" type="submit" id="btnSubmitAdd">Add Teacher</button>
+                    <button class="btn btn-primary float-right btn-submit-ok" type="submit" id="btnSubmitAdd2">Add Teacher</button>
                 </div>
             </form>
 
@@ -665,13 +730,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <div class="form-group">
                                 <label for="password-tea-edit">Password</label>
                                 <input type="text" name="password-old-tea-edit" hidden>
-                                <input type="password" class="form-control" name="password-tea-edit" id="password-tea-edit" placeholder="Enter New Password">
+                                <input type="password" class="form-control password4" name="password-tea-edit" id="password-tea-edit" placeholder="Enter New Password">
                             </div>
 
                             <div class="form-group">
                                 <label for="repassword-tea-edit">Re-New Password</label>
-                                <input type="password" class="form-control" name="repassword-tea-edit" id="repassword-tea-edit" placeholder="Enter New Re-Password">
-                                <div class="" id="validate-status2"></div>
+                                <input type="password" class="form-control repassword4" name="repassword-tea-edit" id="repassword-tea-edit" placeholder="Enter New Re-Password">
+                                <div class="" id="validate-status224"></div>
                             </div>
                         </div>
                         <div class="col-6">
@@ -690,7 +755,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button class="btn btn-success float-right" type="submit" id="btnSubmitAdd">Save</button>
+                    <button class="btn btn-success float-right btn-submit-ok" type="submit" id="btnSubmitAdd3">Save</button>
                 </div>
             </form>
 
@@ -709,7 +774,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </button>
             </div>
 
-            <form autocomplete="off" method="POST" action="<?php echo base_url() . "/" . $this->session->userdata('status') . "/addUserStaff"; ?>">
+            <form autocomplete="off" method="POST" action="<?php echo base_url('admin/addUserStaff'); ?>">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-6">
@@ -777,7 +842,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </button>
             </div>
 
-            <form autocomplete="off" method="POST" action="<?php echo base_url() . "/" . $this->session->userdata('status') . "/editUserStaff"; ?>">
+            <form autocomplete="off" method="POST" action="<?php echo base_url('admin/editUserStaff'); ?>">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-6">
@@ -825,6 +890,135 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     </div>
 
                     <input type="text" name="status" value="staff" hidden>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button class="btn btn-success float-right btn-submit-ok" type="submit">Save</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal Add USER Admin-->
+<div class="modal fade" id="addUserAdmin" tabindex="-1" role="dialog" aria-labelledby="xxx" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary" id="xxx">Add Admin</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form autocomplete="off" method="POST" action="<?php echo base_url('admin/addUserAdmin'); ?>">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="username-admin">Username</label>
+                                <input type="text" class="form-control" name="username-admin" id="username-admin" placeholder="Enter Username" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password-admin">Password</label>
+                                <input type="password" class="form-control password2" name="password-admin" id="password-admin" placeholder="Enter Password" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="repassword-admin">Re-Password</label>
+                                <input type="password" class="form-control repassword2" name="repassword-admin" id="repassword-admin" placeholder="Enter Re-Password" required>
+                                <div class="" id="validate-status22"></div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+
+                            <div class="form-group">
+                                <label for="title-admin">คำนำหน้า</label>
+                                <input type="text" class="form-control" id="title-admin" name="title-admin" placeholder="Enter title" required>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name-admin">ชื่อ</label>
+                                <input type="text" class="form-control" name="name-admin" id="name-admin" placeholder="Enter Name" required>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="surname-admin">นามสกุล</label>
+                                <input type="text" class="form-control" name="surname-admin" id="surname-admin" placeholder="Enter Surname" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="text" name="status-admin" value="admin" hidden>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary float-right btn-submit-ok" type="submit">Add Admin</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit USER Admin-->
+<div class="modal fade" id="editUserAdmin" tabindex="-1" role="dialog" aria-labelledby="xxx" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-black" id="xxx">Edit Admin</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form autocomplete="off" method="POST" action="<?php echo base_url('admin/editUserAdmin'); ?>">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="username-admin-edit">Username</label>
+                                <input type="text" name="id-admin" hidden>
+                                <input type="text" class="form-control" name="username-admin-edit" id="username-admin-edit" placeholder="Enter Username" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password-admin-edit">Password</label>
+                                <input type="password" name="password-admin-old" hidden>
+                                <input type="password" class="form-control password3" name="password-admin-edit" id="password-admin-edit" placeholder="Enter Password">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="repassword-admin-edit">Re-Password</label>
+                                <input type="password" class="form-control repassword3" name="repassword-admin-edit" id="repassword-admin-edit" placeholder="Enter Re-Password">
+                                <div class="" id="validate-status3"></div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+
+                            <div class="form-group">
+                                <label for="title-admin-edit">คำนำหน้า</label>
+                                <input type="text" class="form-control" id="title-admin-edit" name="title-admin-edit" placeholder="Enter title" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name-admin-edit">ชื่อ</label>
+                                <input type="text" class="form-control" name="name-admin-edit" id="name-admin-edit" placeholder="Enter Name" required>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="surname-admin-edit">นามสกุล</label>
+                                <input type="text" class="form-control" name="surname-admin-edit" id="surname-admin-edit" placeholder="Enter Surname" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="text" name="status-admin-edit" value="staff" hidden>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

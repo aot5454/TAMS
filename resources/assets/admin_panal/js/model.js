@@ -120,6 +120,22 @@ $('#editUserTeacher').on('show.bs.modal', function(e) {
     $(e.currentTarget).find('input[name="name-eng-edit"]').val(nameeng);
 });
 
+$('#editUserAdmin').on('show.bs.modal', function(e) {
+    var id = $(e.relatedTarget).data('id');
+    var username = $(e.relatedTarget).data('username');
+    var title = $(e.relatedTarget).data('title');
+    var name = $(e.relatedTarget).data('name');
+    var surname = $(e.relatedTarget).data('surname');
+    var pass = $(e.relatedTarget).data('pwd');
+
+    $(e.currentTarget).find('input[name="id-admin"]').val(id);
+    $(e.currentTarget).find('input[name="username-admin-edit"]').val(username);
+    $(e.currentTarget).find('input[name="password-admin-old"]').val(pass);
+    $(e.currentTarget).find('#title-admin-edit').val(title);
+    $(e.currentTarget).find('input[name="name-admin-edit"]').val(name);
+    $(e.currentTarget).find('input[name="surname-admin-edit"]').val(surname);
+});
+
 $('#time-start').datetimepicker({
     format: 'HH:mm'
 });
@@ -156,3 +172,4 @@ $('#work-en-update').datetimepicker({
 
 $('#tableTeacher').dataTable();
 $('#tableStaff').dataTable();
+$('#tableAdmin').dataTable();
