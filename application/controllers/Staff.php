@@ -25,7 +25,19 @@ class Staff extends CI_Controller
     public function index()
     {
         $data['title'] = "Deshboard";
+
+        $data['num_csit'] = $this->User_model->record_count_user_csit();
+        $data['num_admin'] = $this->User_model->record_count_admin();
+        $data['num_staff'] = $this->User_model->record_count_staff();
+        $data['num_teacher'] = $this->User_model->record_count_teacher();
+
+        $data['num_post_all'] = $this->Post_model->record_count_post_all();
+        $data['num_post_online'] = $this->Post_model->record_count_post_online();
+
+        $data['num_subject'] = $this->Subject_model->record_count_subject();
+
         $this->load->view('template/header_view', $data);
+        $this->load->view('admin/index_view');
         $this->load->view('template/footer_view');
     }
 

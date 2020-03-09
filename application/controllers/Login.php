@@ -38,7 +38,9 @@ class Login extends CI_Controller
             $cou_staff = $this->User_model->record_count__staff($uname, $pass);
             $cou_admin = $this->User_model->record_count__admin($uname, $pass);
 
+
             if ($cou_student == 1 or $cou_teacher == 1 or $cou_staff == 1 or $cou_admin == 1) {
+                //Student
                 if ($cou_student == 1) {
                     $result = $this->User_model->fetch_user_login__st($uname, $pass);
                     $this->session->set_userdata(array(
@@ -49,14 +51,15 @@ class Login extends CI_Controller
                     $_SESSION['message'] = "~~ สวัสดี " . $result->st_name . " " . $result->st_surname . " ~~";
                 }
 
+                //Teacher
                 if ($cou_teacher == 1) {
                     $result = $this->User_model->fetch_user_login__tc($uname, $pass);
                     $this->session->set_userdata(array(
                         'login_id'    => $result->tc_id,
-                        'username'    => $result->tc_name . " " . $result->tc_surname,
+                        'username'    => $result->tc_name_thai,
                         'status' => "teacher"
                     ));
-                    $_SESSION['message'] = "~~ สวัสดี " . $result->tc_name . " " . $result->tc_surname . " ~~";
+                    $_SESSION['message'] = "~~ สวัสดี " . $result->tc_name_thai . " ~~";
                 }
 
                 if ($cou_staff == 1) {

@@ -187,7 +187,7 @@ class User_model extends CI_Model
 
     public function fetch_user_id_teacher($id)
     {
-        $this->db->where('teacher_id', $id);
+        $this->db->where('tc_id', $id);
         $query = $this->db->get('tb_teacher');
         return $query->result_array();
     }

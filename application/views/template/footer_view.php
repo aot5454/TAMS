@@ -158,20 +158,22 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </form>
             <?php
             } elseif ($this->session->userdata('status') == "teacher") {
+                $id = $this->session->userdata('login_id');
+                $info_tc = $this->User_model->fetch_user_id_teacher($id);
             ?>
-                <form autocomplete="off" method="POST" action="<?php echo base_url('admin/editUserTeacher'); ?>">
+                <form autocomplete="off" method="POST" action="<?php echo base_url('teacher/editUserTeacher'); ?>">
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="id-teacher-edit">ID Teacher</label>
-                                    <input type="text" name="id-teacher-old-edit" hidden>
-                                    <input type="text" class="form-control" name="id-teacher-edit" id="id-teacher-edit" placeholder="Enter ID" required>
+                                    <input type="text" name="id-teacher-old-edit" value="<?= $info_tc[0]['tc_id'] ?>" hidden>
+                                    <input type="text" class="form-control" name="id-teacher-edit" id="id-teacher-edit" placeholder="Enter ID" value="<?= $info_tc[0]['tc_id'] ?>" required readonly>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="password-tea-edit">Password</label>
-                                    <input type="text" name="password-old-tea-edit" hidden>
+                                    <input type="text" name="password-old-tea-edit" value="<?= $info_tc[0]['tc_pwd'] ?>" hidden>
                                     <input type="password" class="form-control password4" name="password-tea-edit" id="password-tea-edit" placeholder="Enter New Password">
                                 </div>
 
@@ -184,11 +186,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="name-thai-edit">Name thai</label>
-                                    <input type="text" class="form-control" name="name-thai-edit" id="name-thai-edit" placeholder="Enter Name thai" required>
+                                    <input type="text" class="form-control" name="name-thai-edit" id="name-thai-edit" placeholder="Enter Name thai" value="<?= $info_tc[0]['tc_name_thai'] ?>" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="name-eng-edit">Name Eng</label>
-                                    <input type="text" class="form-control" name="name-eng-edit" id="name-eng-edit" placeholder="Enter Name Eng" required>
+                                    <input type="text" class="form-control" name="name-eng-edit" id="name-eng-edit" placeholder="Enter Name Eng" value="<?= $info_tc[0]['tc_name_eng'] ?>" required>
                                 </div>
                             </div>
                         </div>
@@ -218,13 +220,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <div class="form-group">
                                     <label for="password-staff-edit">New Password</label>
                                     <input type="password" name="password-staff-old" value="<?= $info[0]['staff_pwd']; ?>" hidden>
-                                    <input type="password" class="form-control password" name="password-staff-edit" id="password-staff-edit" placeholder="Enter Password">
+                                    <input type="password" class="form-control password4" name="password-staff-edit" id="password-staff-edit" placeholder="Enter Password">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="repassword-staff-edit">Renew-Password</label>
-                                    <input type="password" class="form-control repassword" name="repassword-staff-edit" id="repassword-staff-edit" placeholder="Enter Re-Password">
-                                    <div class="" id="validate-status2"></div>
+                                    <input type="password" class="form-control repassword4" name="repassword-staff-edit" id="repassword-staff-edit" placeholder="Enter Re-Password">
+                                    <div class="" id="validate-status224"></div>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -256,7 +258,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button class="btn btn-success float-right btn-submit-ok" type="submit">Save</button>
+                        <button class="btn btn-success float-right btn-submit-ok" type="submit" id="btnSubmitAdd3">Save</button>
                     </div>
                 </form>
             <?php
@@ -277,13 +279,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <div class="form-group">
                                     <label for="password-admin-edit">Password</label>
                                     <input type="password" name="password-admin-old" value="<?= $info[0]['admin_pwd'] ?>" hidden>
-                                    <input type="password" class="form-control password3" name="password-admin-edit" id="password-admin-edit" placeholder="Enter Password">
+                                    <input type="password" class="form-control password4" name="password-admin-edit" id="password-admin-edit" placeholder="Enter Password">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="repassword-admin-edit">Re-Password</label>
-                                    <input type="password" class="form-control repassword3" name="repassword-admin-edit" id="repassword-admin-edit" placeholder="Enter Re-Password">
-                                    <div class="" id="validate-status3"></div>
+                                    <input type="password" class="form-control repassword4" name="repassword-admin-edit" id="repassword-admin-edit" placeholder="Enter Re-Password">
+                                    <div class="" id="validate-status224"></div>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -310,7 +312,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button class="btn btn-success float-right btn-submit-ok" type="submit">Save</button>
+                        <button class="btn btn-success float-right btn-submit-ok" type="submit" id="btnSubmitAdd3">Save</button>
                     </div>
                 </form>
             <?php

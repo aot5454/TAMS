@@ -66,7 +66,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <span class="login100-form-title p-b-41">
                     Teacher Assistant Management System
                 </span>
-                <form class="login100-form validate-form p-b-33 p-t-5" method="post" action="<?php echo base_url('login/validlogin') ?>" autocomplete="off">
+                <form class="login100-form validate-form p-b-33 p-t-5" method="post" action="<?php echo base_url('login/validlogin') ?>" autocomplete="on">
 
                     <div class="wrap-input100 validate-input" data-validate="Enter username">
                         <input class="input100" type="text" name="username" id="username" placeholder="User name">
@@ -88,7 +88,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             </div>
             <div class="container my-auto m-0">
                 <div class="copyright text-center my-auto text-white">
-                    <h6><span>Copyright &copy; 2019 - <?= date('Y'); ?> เอาไงทีม. All rights reserved.</span></h6>
+                    <h6><span>Copyright &copy; 2019 - <?= date('Y'); ?> #ตามสัญญา. All rights reserved.</span></h6>
                 </div>
             </div>
         </div>

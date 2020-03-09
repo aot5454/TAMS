@@ -24,4 +24,9 @@ class Teacher_model extends CI_Model
 
         return $query->result_array();
     }
+
+    public function record_count_teacher()
+    {
+        return $this->db->count_all_results('tb_teacher');
+    }
 }

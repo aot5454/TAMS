@@ -61,4 +61,9 @@ class Subject_model extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+
+    public function record_count_subject()
+    {
+        return $this->db->count_all_results('tb_subject');
+    }
 }

@@ -79,7 +79,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             } elseif ($user == "staff") {
                 include_once 'slidebar/slidebar_staff.php';
             } elseif ($user == "teacher") {
-                //include_once 'slidebar.php';
+                include_once 'slidebar/slidebar_teacher.php';
             } elseif ($user == "nisit") {
                 include_once 'slidebar/slidebar_nisit.php';
             }

@@ -19,20 +19,23 @@
                  <?php
                     $id = $this->session->userdata('login_id');
                     $status = $this->session->userdata('status');
-                    $photo = 'https://source.unsplash.com/QAB-WJcbgJk/60x60';
                     if ($status == "nisit") {
                         $user = $this->User_model->fetch_user_id_st_print($id);
                         $name = $user[0]['st_title'] . $user[0]['st_name'] . " " . $user[0]['st_surname'];
+                        $photo = 'https://image.flaticon.com/icons/png/512/201/201818.png';
                     } elseif ($status == "teacher") {
                         $user = $this->User_model->fetch_user_id_teacher($id);
                         $name = $user[0]['tc_name_thai'];
+                        $photo = 'https://lh3.googleusercontent.com/proxy/rzCbfh4703ZWqyX796N2KX0pGh6rfeRRtFugmmWF1AtN53QWhrmSVxtnPZqi3Sa4QREkqrpgmDLBCyTc-pJA2FizTZ88BMgnoC2T7llt82xjXMlvyBiUhg';
                     } elseif ($status == "staff") {
                         $user = $this->User_model->fetch_user_id_staff($id);
                         $name = $user[0]['staff_title'] . $user[0]['staff_name'] . " " . $user[0]['staff_surname'];
+                        $photo = 'https://image.flaticon.com/icons/png/512/147/147140.png';
                     } elseif ($status == "admin") {
                         $user = $this->User_model->fetch_user_id_admin($id);
                         $name = $user[0]['admin_title'] . $user[0]['admin_name'] . " " . $user[0]['admin_surname'];
-                        $photo = 'https://i.pinimg.com/originals/a7/61/f7/a761f73afe73b71f039a4c605b4eeba8.jpg';
+                        //$photo = 'https://i.pinimg.com/originals/a7/61/f7/a761f73afe73b71f039a4c605b4eeba8.jpg';
+                        $photo = 'https://image.flaticon.com/icons/png/512/236/236832.png';
                     }
 
                     ?>

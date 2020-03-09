@@ -33,6 +33,25 @@ class Post_model extends CI_Model
         return $query->result_array();
     }
 
+    public function fetchAll_post_join_idteacher($id_teacher)
+    {
+        $this->db->select('
+        tb_post.*,
+        tb_post_info.*,
+        tb_subject.sj_id,
+        tb_subject.sj_name_thai,
+        tb_teacher.tc_name_thai,');
+
+        $this->db->from('tb_post');
+        $this->db->join('tb_subject', 'tb_subject.sj_id = tb_post.sj_id');
+        $this->db->join('tb_post_info', 'tb_post_info.poif_id = tb_post.poif_id');
+        $this->db->join('tb_teacher', 'tb_teacher.tc_id = tb_post.tc_id');
+
+        $this->db->where('tb_post.tc_id', $id_teacher);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
     public function fetchAll_post_online()
     {
         $this->db->select('
@@ -65,13 +84,11 @@ class Post_model extends CI_Model
         $this->db->from('tb_post');
         $this->db->join('tb_subject', 'tb_subject.sj_id = tb_post.sj_id');
         $this->db->join('tb_teacher', 'tb_teacher.tc_id = tb_post.tc_id');
-
         $this->db->where('post_id', $id_post);
-
         $query = $this->db->get();
-
         return $query->result_array();
     }
+
 
     public function fetch_post_join_print($id_post)
     {
@@ -182,5 +199,33 @@ class Post_model extends CI_Model
 
         $query = $this->db->get();
         return $query->result();
+    }
+
+    public function record_count_post_online()
+    {
+        $this->db->where('post_status', 'on');
+        return $this->db->count_all_results('tb_post');
+    }
+
+    public function record_count_post_all()
+    {
+        return $this->db->count_all_results('tb_post');
+    }
+
+    public function record_count_post_id_tc($id_tc)
+    {
+        $this->db->where('tc_id', $id_tc);
+        return $this->db->count_all_results('tb_post');
+    }
+
+    public function record_count_post_id_tc_online($id_tc)
+    {
+        $data = array(
+            'tc_id' => $id_tc,
+            'post_status' => 'on'
+        );
+
+        $this->db->where($data);
+        return $this->db->count_all_results('tb_post');
     }
 }
