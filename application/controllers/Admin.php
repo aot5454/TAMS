@@ -742,4 +742,9 @@ class Admin extends CI_Controller
         $_SESSION['message'] = "~~ See you again ~~";
         redirect('login');
     }
+
+    public function Hello()
+    {
+        echo('Hello');
+    }
 }

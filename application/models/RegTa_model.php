@@ -115,6 +115,18 @@ class RegTa_model extends CI_Model
 
         return $query->result_array();
     }
+
+    public function fatch_idNisit_allow($id_post)
+    {
+        $this->db->select('st_id');
+        $this->db->from('tb_reg_ta');
+        $this->db->where('post_id', $id_post);
+        $this->db->where('reg_status', 'allow');
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
     public function chack_reg_number($id_reg, $id_nisit)
     {
         $this->db->select('status');

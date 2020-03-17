@@ -137,6 +137,7 @@
                                     <th>ภาคเรียน</th>
                                     <th>สถานะ</th>
                                     <th>ผู้สมัคร</th>
+                                    <th>ผ่านการคัดเลือก</th>
 
                                 </tr>
                             </thead>
@@ -168,9 +169,22 @@
                                                 echo "</ul>";
                                             }
                                             ?>
-
                                         </td>
-
+                                        <td class="text-left">
+                                            <?php
+                                            $id_nisit_reg = $this->RegTa_model->fatch_idNisit_allow($post['post_id']);
+                                            if (empty($id_nisit_reg)) {
+                                                echo "-";
+                                            } else {
+                                                echo "<ul style='padding-left: 15px;'>";
+                                                foreach ($id_nisit_reg as $idNisit) {
+                                                    $user = $this->User_model->fetch_user_id_st($idNisit['st_id']);
+                                                    echo "<li>" . $user[0]['st_title'] . $user[0]['st_name'] . $user[0]['st_surname'] . "<br>";
+                                                }
+                                                echo "</ul>";
+                                            }
+                                            ?>
+                                        </td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
